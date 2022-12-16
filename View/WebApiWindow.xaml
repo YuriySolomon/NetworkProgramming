@@ -1,0 +1,74 @@
+﻿<Window x:Class="NetworkProgramming.View.WebApiWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NetworkProgramming.View"
+        mc:Ignorable="d"
+        Loaded="Window_Loaded"
+        Title="WebApiWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="45"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <CheckBox Grid.Row="0" Grid.Column="0"
+                x:Name="MoreCripts"
+                Content="Порівняти графіки"
+                FontSize="18"
+                FontWeight="Bold"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"/>
+        <StackPanel Grid.Row="0" Grid.Column="1"
+                    Orientation="Horizontal">
+            <Label FontSize="21"
+                   FontWeight="Bold"
+                   HorizontalAlignment="Center">
+                Курси криптовалют
+            </Label>
+            <Label x:Name="coinTitleOne" FontSize="21"></Label>
+            <Label x:Name="coinTitleTwo" FontSize="21"></Label>
+        </StackPanel>
+
+        <ListView ItemsSource="{Binding Assets}"
+                  Grid.Column="0" Grid.Row="1"
+                  ScrollViewer.VerticalScrollBarVisibility="Auto"
+                  MaxHeight="350">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn 
+                        Header="Symbol"
+                        DisplayMemberBinding="{Binding Path=symbol}"/>
+                    <GridViewColumn 
+                        Header="Id"
+                        DisplayMemberBinding="{Binding Path=id}"/>
+                    <GridViewColumn 
+                        Header="priceUsd"
+                        DisplayMemberBinding="{Binding Path=priceUsd}"/>
+                    <GridViewColumn 
+                        Header="Supply"
+                        DisplayMemberBinding="{Binding Path=supply}"/>
+                </GridView>
+            </ListView.View>
+            <ListView.Resources>
+                <Style TargetType="{x:Type ListViewItem}">
+                    <EventSetter
+                        Event="MouseDoubleClick"
+                        Handler="ListViewItem_MouseDoubleClick"/>
+                </Style>
+            </ListView.Resources>
+        </ListView>
+
+        <Border Grid.Row="1" Grid.Column="1"
+                BorderBrush="SteelBlue"
+                BorderThickness="2">
+            <Canvas x:Name="Graph"  />
+        </Border>
+
+    </Grid>
+</Window>

@@ -1,0 +1,29 @@
+﻿<Window x:Class="NetworkProgramming.View.ClientWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NetworkProgramming.View"
+        mc:Ignorable="d"
+        Loaded="Window_Loaded"
+        Title="ClientWindow" Height="450" Width="800">
+    <Grid ShowGridLines="True">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.Column="0"
+                   x:Name="Log"/>
+        <StackPanel Grid.Column="1"
+                    Orientation="Vertical">
+            <Label>Повідомлення</Label>
+            <TextBox x:Name="ClientMessage">
+                Вітання
+            </TextBox>
+            <Button x:Name="SendButton"
+                    Click="SendButton_Click">
+                Надіслати
+            </Button>
+        </StackPanel>
+    </Grid>
+</Window>
