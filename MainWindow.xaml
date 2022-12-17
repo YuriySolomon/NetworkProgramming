@@ -20,5 +20,9 @@
                 Click="WebApiButton_Click">
             Web-API
         </Button>
+        <Button x:Name="SmtpApiButton"
+                Click="SmtpApiButton_Click">
+            Web-API
+        </Button>
     </StackPanel>
 </Window>

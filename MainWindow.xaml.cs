@@ -45,5 +45,12 @@ namespace NetworkProgramming
             new View.WebApiWindow().ShowDialog();
             this.Show();
         }
+
+        private void SmtpApiButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Hide();
+            new View.SmtpiWindow().ShowDialog();
+            this.Show();
+        }
     }
 }
