@@ -5,8 +5,94 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NetworkProgramming.View"
         mc:Ignorable="d"
+        Loaded="Window_Loaded"
         Title="SmtpWindow" Height="450" Width="800">
-    <Grid>
-        
+    <Grid ShowGridLines="True">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Row="0" Grid.Column="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="4*"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   FontSize="22"
+                   FontWeight="DemiBold">
+                Відправка пошти
+            </Label>
+            <Label Grid.Row="1" Grid.Column="0">
+                Кому:
+            </Label>
+            <TextBox x:Name="mailTo"
+                     Grid.Row="1" Grid.Column="1"
+                     Text="change@gmail.com"/>
+           
+            <Label Grid.Row="2" Grid.Column="0">
+                Тема:
+            </Label>
+            <TextBox x:Name="mailSubj"
+                     Grid.Row="2" Grid.Column="1"
+                     Text="Повідомлення з додатку"/>
+
+            <Label Grid.Row="3" Grid.Column="0">
+                Повідомлення:
+            </Label>
+            <TextBox x:Name="mailBody" TextWrapping="WrapWithOverflow"
+                     Grid.Row="3" Grid.Column="1"
+                     AcceptsReturn="True"
+                     VerticalScrollBarVisibility="Visible"
+                     >
+
+                Шановний користувач!
+                 Ви вказали свою пошту у програмі SMTP.
+                 Ваш код підтвердження 
+
+
+            </TextBox>
+
+            <Button x:Name="SendEmail" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Padding="20 10"
+                    Click="SendEmail_Click">
+                Надіслати
+            </Button>
+        </Grid>
+
+
+        <StackPanel Grid.Row="0" Grid.Column="1">
+            <Label FontSize="22" FontWeight="DemiBold"
+                   HorizontalAlignment="Center">
+                Підтвердження коду
+            </Label>
+            <StackPanel Orientation="Horizontal">
+                <Label>Email:</Label>
+                <TextBox x:Name="confirmEmail"
+                         Text="change@gmail.com"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label>Code:</Label>
+                <TextBox x:Name="confirmCode"
+                         Width="100"/>
+            </StackPanel>
+            <Button x:Name="ConfirmCode"
+                    HorizontalAlignment="Center"
+                    Padding="10 5"
+                    Click="ConfirmCode_Click">
+                Підтвердити
+            </Button>
+        </StackPanel>
     </Grid>
 </Window>

@@ -5,6 +5,7 @@
 
 # personal config data
 emailconfig.json
+db.json
 
 # User-specific files
 *.rsuser

@@ -49,7 +49,7 @@ namespace NetworkProgramming
         private void SmtpApiButton_Click(object sender, RoutedEventArgs e)
         {
             this.Hide();
-            new View.SmtpiWindow().ShowDialog();
+            new View.SmtpWindow().ShowDialog();
             this.Show();
         }
     }
