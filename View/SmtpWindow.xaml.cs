@@ -59,7 +59,7 @@ namespace NetworkProgramming.View
             {
                 //connection = new SqlConnection(
                 //    db?.GetProperty("Emaildatabase").GetString());
-                String con = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=E:\\Studing\\C#\\Programms\\! WPF\\NetworkProgramming\\EmailDatabase.mdf;Integrated Security=True";
+                String con = db?.GetProperty("EmailDatabase").GetString(); // "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=E:\\Studing\\C#\\Programms\\! WPF\\NetworkProgramming\\EmailDatabase.mdf;Integrated Security=True";
                 connection = new SqlConnection(con);
                 connection.Open();
             }

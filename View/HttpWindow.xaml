@@ -44,18 +44,36 @@
                     Click="JsonRequestButton_Click" Width="70">
                     GET JSON
                 </Button>
+            </WrapPanel>            
+
+            <WrapPanel>
+                <!--  <TextBox x:Name="textBoxData" Width="300">
+                    Вибірить дату
+                </TextBox> -->
+                <DatePicker x:Name="dataPicker"
+                            DisplayDateStart="01/01/2022"
+                            
+                            Width="300"/>
+                <Button x:Name="JsonDataButton"
+                    Click="JsonDataButton_Click" Width="70">
+                    GET J Data
+                </Button>
             </WrapPanel>
             <TextBlock x:Name="textBlockResponse"/>
         </StackPanel>
 
         <Border BorderBrush="Tomato" BorderThickness="2"
                 x:Name="Border1" Grid.Column="1">
-            <TreeView x:Name="treeView1">
-                <TreeViewItem Header="123">
-                    <TreeViewItem Header="234"/>
-                    <TreeViewItem Header="456"/>
-                </TreeViewItem>
-            </TreeView>
+            <StackPanel Orientation="Vertical">
+               <!-- <Label Content="Виберіть дату: "/> -->
+                
+                <TreeView x:Name="treeView1">
+                    <TreeViewItem Header="123">
+                        <TreeViewItem Header="234"/>
+                        <TreeViewItem Header="456"/>
+                    </TreeViewItem>
+                </TreeView>
+            </StackPanel>            
         </Border>
     </Grid>
 </Window>

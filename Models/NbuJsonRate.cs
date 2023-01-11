@@ -9,7 +9,7 @@ namespace NetworkProgramming.Models
     // модель для JSON данных курсов валют от НБУ (https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?json)
     internal class NbuJsonRate
     {
-        public Int16 r030 { get; set; } //sort
+        public Int16 r030 { get; set; } //short
         public String  txt { get; set; }
         public Single rate { get; set; } // float
         public String cc { get; set; }

@@ -28,6 +28,8 @@ namespace NetworkProgramming.View
         public HttpWindow()
         {
             InitializeComponent();
+            dataPicker.SelectedDate = DateTime.Now;
+            dataPicker.DisplayDateEnd = DateTime.Now;
         }
 
         private void HtmlRequestButton_Click(object sender, RoutedEventArgs e)
@@ -130,7 +132,7 @@ namespace NetworkProgramming.View
             treeView1.Items.Clear();
             foreach (Models.NbuJsonRate rate in ratesList)
             {
-                if (rate.txt == "Долар США" || rate.txt == "Данська крона" || rate.txt == "Єна")
+                if (rate.txt == "Долар США" || rate.txt == "Фунт стерлінгів" || rate.txt == "Євро")
                 {
                     // создаем узел с сокращенным названием валюты
                     TreeViewItem item = new TreeViewItem()
@@ -148,6 +150,33 @@ namespace NetworkProgramming.View
                 }
             }
             // Задание: вывести не все курсы, а только Доллар США, Евро, Ена
+        }
+
+        private async void JsonDataButton_Click(object sender, RoutedEventArgs e)
+        {            
+            if (dataPicker.SelectedDate > DateTime.Now)
+            {
+                MessageBox.Show("Майбутнє не передбачаємо!");
+                dataPicker.SelectedDate = DateTime.Now;                
+                return;
+            }
+            String? data;
+            data = dataPicker.SelectedDate.ToString();
+            data = data?.Remove(10);
+            string[] words = data.Split('.');
+            data = "";            
+            for (int i = words.Length - 1; i >= 0; i--)
+            {
+                data += words[i];
+            }            
+            using HttpClient httpClient = new()                          
+            {                                                            
+                BaseAddress = new Uri("https://bank.gov.ua")             
+            };                                                           
+            textBlockResponse.Text = await                               
+                httpClient.GetStringAsync("/NBUStatService/v1/statdirectory/exchange?date=" + data + "&json");
+            
+            ParseJsonRates();
         }
     }
 }
