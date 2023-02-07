@@ -67,7 +67,7 @@ namespace NetworkProgramming.View
 
                 #region Прием и обработка запросов
                 byte[] buffer = new byte[2048];                 // буыер приема данных
-                String str     ;                                // перевод буфера в строку
+                String str;                                     // перевод буфера в строку
                 int n;                                          // кол-во принятых символов
                 while (true)                                    // постоянное "слушание"
                 {
@@ -83,29 +83,68 @@ namespace NetworkProgramming.View
 
                     } while (requestSocket.Available > 0);      // пока есть данные для приема
 
-                    // Данные получены и переведены в строку str
-                    // Dispatcher.Invoke(() => { Log.Text += str + "\n"; });
-                    // преобразуем их в команду (запрос) и проанализируем
+                    #region Work code
+
+                    //// Данные получены и переведены в строку str
+                    //// Dispatcher.Invoke(() => { Log.Text += str + "\n"; });
+                    //// преобразуем их в команду (запрос) и проанализируем
+                    //var request = JsonSerializer.Deserialize<Models.ClientRequest>(str);
+                    //String response;
+                    //switch (request?.Command)
+                    //{
+                    //    case "CREATE":
+                    //        response = "Нове повідомлення: " + request.Data;
+                    //        break;
+                    //    default:
+                    //        response = "Команда не розпізнана";
+                    //        break;
+                    //}
+
+                    //// Отвечаем клиенту (обратный процесс: строка-байты-отправка)
+                    //// String response = "Отримано: " + str;
+                    //buffer = networkConfig.Encoding.GetBytes(response);
+                    //requestSocket.Send(buffer);
+
+                    //// Закрываем соединени (обменный сокет)
+                    //requestSocket.Shutdown(SocketShutdown.Both);
+                    //requestSocket.Close();
+
+                    #endregion
+
+                    #region DZ
+
                     var request = JsonSerializer.Deserialize<Models.ClientRequest>(str);
-                    String response;
+
+                    Models.ServerResponse response = new()
+                    {
+                        Status = "",
+                        Data = ""
+                    };
+
                     switch (request?.Command)
                     {
                         case "CREATE":
-                            response = "Нове повідомлення: " + request.Data;
+                            response.Status = "200";
+                            response.Data =  request.Data;                             
                             break;
                         default:
-                            response = "Команда не розпізнана";
+                            response.Status = "201";
+                            response.Data = request?.Data;
                             break;
                     }
-                    // Отвечаем клиенту (обратный процесс: строка-байты-отправка)
-                    // String response = "Отримано: " + str;
-                    buffer = networkConfig.Encoding.GetBytes(response);
-                    requestSocket.Send(buffer);
+
+                    // переводим объект в текст (JSON) -> в байты ->  отправляем
+                    requestSocket.Send(
+                        networkConfig.Encoding.GetBytes(
+                            JsonSerializer.Serialize(response)
+                            ));                                    
 
                     // Закрываем соединени (обменный сокет)
                     requestSocket.Shutdown(SocketShutdown.Both);
                     requestSocket.Close();
 
+                    #endregion
+                    
                     // логируем полученное сообщение
                     Dispatcher.Invoke(() => { Log.Text += str + "\n"; });
                 }

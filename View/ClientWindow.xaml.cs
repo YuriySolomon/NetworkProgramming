@@ -84,9 +84,21 @@ namespace NetworkProgramming.View
                     str += networkConfig.Encoding.GetString(buffer, 0, n);
                 } while (clientSocket.Available > 0);
 
-                // выводим ответ сервера в "лог
-                Dispatcher.Invoke( () => { Log.Text += str + "\n";  });
-                
+                var temp = JsonSerializer.Deserialize<Models.ServerResponse>(str);
+
+                switch (temp?.Status)
+                {
+                    case "200":
+                        Dispatcher.Invoke(() => { Log.Text += str + "\n"; });
+                        break;
+                    default:
+                        Dispatcher.Invoke(() => { Log.Text += "Errors\n"; });
+                        break;
+                }
+
+                //// выводим ответ сервера в "лог
+                //Dispatcher.Invoke(() => { Log.Text += str + "\n"; });
+
                 // закрываем соединение с сервером
                 clientSocket.Shutdown(SocketShutdown.Both);
                 clientSocket.Close();
